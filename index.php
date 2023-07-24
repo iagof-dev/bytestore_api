@@ -25,14 +25,14 @@ if ($api == '') {
     echo json_encode(["data" => "Especifique a função"]);
 }
 
-if ($action == '') {
-    echo json_encode(["data" => "Especifique a ação"]);
-}
+//             $api  $action $param
+// localhost/usuario/id/1
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 include_once("classes/db.php");
-
 include_once("api/usuarios/usuario.php");
+include_once("api/produtos/produto.php");
+
 
 ?>
