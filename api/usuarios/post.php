@@ -7,34 +7,32 @@ if(empty($_POST)){
     exit(0);
 }
 
-$usuario = false;
-$email = false;
-$senha = false;
-$cargo = false;
-
-
-foreach (array_keys($_POST) as $key){
-    if($key == 'username'){
-        $usuario = true;
-    }
-    if($key == 'email') {
-        $email = true;
-    }
-    if($key == 'pass') {
-        $senha = true;
-    }
-    if($key == 'role'){
-        $cargo = true;
-    }
-}
-
-if($usuario == false || $email == false || $senha == false){
-    echo(json_encode(["status" => "error", "message" => "falta argumentos"]));
-    exit(0);
-}
 
 switch ($action) {
     case 'criar':
+        $usuario = false;
+        $email = false;
+        $senha = false;
+        $cargo = false;
+        foreach (array_keys($_POST) as $key){
+            if($key == 'username'){
+                $usuario = true;
+            }
+            if($key == 'email') {
+                $email = true;
+            }
+            if($key == 'pass') {
+                $senha = true;
+            }
+            if($key == 'role'){
+                $cargo = true;
+            }
+        }
+
+        if($usuario == false || $email == false || $senha == false){
+            echo(json_encode(["status" => "error", "message" => "falta argumentos"]));
+            exit(0);
+        }
         $com = "INSERT INTO users (";
         //echo var_dump(array_keys($_POST));
         //echo var_dump(array_values($_POST));

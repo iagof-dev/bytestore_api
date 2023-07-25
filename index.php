@@ -20,13 +20,16 @@ if (isset($path[1])) {
 if (isset($path[2])) {
     $param = $path[2];
 }
+if(isset($path[3])){
+    $param2 = $path[2];
+}
 
 if ($api == '') {
     echo json_encode(["data" => "Especifique a função"]);
 }
 
-//             $api  $action $param
-// localhost/usuario/id/1
+//                $api  $action $param $param2
+//    localhost/usuario/localizar/add/1
 
 $method = $_SERVER['REQUEST_METHOD'];
 
