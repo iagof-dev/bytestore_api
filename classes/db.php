@@ -4,7 +4,7 @@ class DB{
     public static function connect(){
         $host = "";
         $port = "3306";
-        $user = "root";
+        $user = "n3rdydev";
         $pass = "N3rdygamerbr@123";
         $database = "n3rdy_bytestore";
 
