@@ -2,7 +2,7 @@
 
 class DB{
     public static function connect(){
-        $host = "";
+        $host = "db.n3rdydev.cloud";
         $port = "3306";
         $user = "n3rdydev";
         $pass = "N3rdygamerbr@123";

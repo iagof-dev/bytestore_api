@@ -45,6 +45,23 @@ switch ($action) {
         $com = substr_replace($com, "", -1) . ");";
         $message = "Usuário criado com sucesso!";
         break;
+
+    case "modificar":
+        $com = "update users set ";
+        $id = 0;
+        foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value){
+            if(strtolower($key) == 'id'){
+                $id = $value;
+            }
+            else{
+                $com .= $key. "='". $value."', " ;
+            }
+        }
+        $com = substr($com, 0, -2);
+        $com .= " where id='".$id."';";
+        $message = "Usuário modificado com sucesso!";
+        break;
+
     case "deletar":
         $com = "delete from users where id='";
         foreach (array_keys($_POST) as $key) {
@@ -67,7 +84,7 @@ try {
     if ($numRowsAffected > 0) {
         echo json_encode(["status" => "success", "message" => $message]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Nenhum usuário encontrado"]);
+        echo json_encode(["status" => "error", "message" => "Nada foi alterado"]);
     }
 } catch (Exception $ex) {
     echo json_encode(["status" => "error", "message" => $ex]);
