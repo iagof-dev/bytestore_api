@@ -49,16 +49,15 @@ switch ($action) {
     case "modificar":
         $com = "update users set ";
         $id = 0;
-        foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value){
-            if(strtolower($key) == 'id'){
+        foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value) {
+            if (strtolower($key) == 'id') {
                 $id = $value;
-            }
-            else{
-                $com .= $key. "='". $value."', " ;
+            } else {
+                $com .= $key . "='" . $value . "', ";
             }
         }
         $com = substr($com, 0, -2);
-        $com .= " where id='".$id."';";
+        $com .= " where id='" . $id . "';";
         $message = "Usuário modificado com sucesso!";
         break;
 
@@ -75,6 +74,16 @@ switch ($action) {
         }
         $message = "Usuário deletado com sucesso!";
         break;
+
+    case "logar":
+        $com = "select * from users where ";
+        foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value) {
+            $com .= $key . "='" . $value . "' and ";
+        }
+        $com = substr($com, 0, -5);
+        $com .= ";";
+        $message = '';
+        break;
 }
 
 try {
@@ -82,9 +91,13 @@ try {
     $rs->execute();
     $numRowsAffected = $rs->rowCount();
     if ($numRowsAffected > 0) {
-        echo json_encode(["status" => "success", "message" => $message]);
+        if($message != ""){
+            echo json_encode(["status" => "success", "message" => $message]);
+            exit();
+        }
+        echo json_encode(["status" => "success", "message" => $rs->fetchAll(PDO::FETCH_ASSOC)]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Nada foi alterado"]);
+        echo json_encode(["status" => "error", "message" => "Nada foi modificado..."]);
     }
 } catch (Exception $ex) {
     echo json_encode(["status" => "error", "message" => $ex]);
