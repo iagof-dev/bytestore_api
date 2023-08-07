@@ -1,8 +1,8 @@
 <?php
-$db = DB::connect();
+$db = DB::connect("n3rdy_bytestore");
 
 if (empty($_POST)) {
-    echo (json_encode(["DATA" => "Erro!"]));
+    echo (json_encode(["status" => "error", "message" => "Nenhum argumento foi passado"]));
     exit(0);
 }
 $com = "";
@@ -35,6 +35,7 @@ switch ($action) {
         }
         $com = "INSERT INTO users (";
         foreach (array_keys($_POST) as $key) {
+            
             $com .= $key . ",";
         }
         $com = substr_replace($com, "", -1) . ") values (";
@@ -50,6 +51,7 @@ switch ($action) {
         $com = "update users set ";
         $id = 0;
         foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value) {
+
             if (strtolower($key) == 'id') {
                 $id = $value;
             } else {
@@ -64,6 +66,7 @@ switch ($action) {
     case "deletar":
         $com = "delete from users where id='";
         foreach (array_keys($_POST) as $key) {
+
             if (strtolower($key) != 'id') {
                 echo (json_encode(["status" => "error", "message" => "Para deletar um usuário necessita do ID"]));
                 exit;
@@ -78,6 +81,8 @@ switch ($action) {
     case "logar":
         $com = "select * from users where ";
         foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value) {
+           
+
             $com .= $key . "='" . $value . "' and ";
         }
         $com = substr($com, 0, -5);

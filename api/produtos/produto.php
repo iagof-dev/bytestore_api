@@ -1,6 +1,7 @@
 <?php
 
-
+$AccessToken = new client();
+$AccessToken->login();
 if ($api == 'produto' && $method == 'GET') {
     include_once("get.php");
 }

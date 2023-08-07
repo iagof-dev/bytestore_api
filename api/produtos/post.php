@@ -1,5 +1,5 @@
 <?php
-$db = DB::connect();
+$db = DB::connect("n3rdy_bytestore");
 
 $com = "";
 

@@ -2,13 +2,13 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');
 
-
 date_default_timezone_set("America/Sao_Paulo");
 
 if (isset($_GET['path'])) {
     $path = explode("/", $_GET['path']);
 } else {
-    echo ("Caminho não encontrado");
+    echo json_encode(["status" => "Sem parâmetros!"]);
+    exit();
 }
 
 if (isset($path[0])) {
@@ -21,7 +21,7 @@ if (isset($path[2])) {
     $param = $path[2];
 }
 if(isset($path[3])){
-    $param2 = $path[2];
+    $param2 = $path[3];
 }
 
 if ($api == '') {
@@ -33,7 +33,12 @@ if ($api == '') {
 
 $method = $_SERVER['REQUEST_METHOD'];
 
+
+#Classes
 include_once("classes/db.php");
+include_once("classes/usuario.php");
+
+#API
 include_once("api/usuarios/usuario.php");
 include_once("api/produtos/produto.php");
 

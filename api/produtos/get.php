@@ -1,5 +1,5 @@
 <?php
-$db = DB::connect();
+$db = DB::connect("n3rdy_bytestore");
 switch ($action) {
     case 'id':
         $rs = $db->prepare("SELECT * FROM products where id={$param};");
