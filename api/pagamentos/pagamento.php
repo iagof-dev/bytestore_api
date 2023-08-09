@@ -1,7 +1,11 @@
 <?php
 
 $AccessToken = new client();
-$AccessToken->login();
+$retorno = $AccessToken->login();
+foreach (array_keys($_POST) as $key) {
+    unset($_POST['apiuser']);
+    unset($_POST['apipass']);
+}
 
 if ($api == 'pagamento' && $method == 'GET') {
     include_once("get.php");

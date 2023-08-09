@@ -1,10 +1,11 @@
 <?php
-$db = DB::connect("n3rdy_bytestore");
+error_reporting(-1);
 
 if (empty($_POST)) {
     echo (json_encode(["status" => "error", "message" => "Nenhum argumento foi passado"]));
     exit(0);
 }
+$db = DB::connect("n3rdy_bytestore");
 $com = "";
 $message = "";
 
@@ -51,7 +52,6 @@ switch ($action) {
         $com = "update users set ";
         $id = 0;
         foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value) {
-
             if (strtolower($key) == 'id') {
                 $id = $value;
             } else {
@@ -66,7 +66,6 @@ switch ($action) {
     case "deletar":
         $com = "delete from users where id='";
         foreach (array_keys($_POST) as $key) {
-
             if (strtolower($key) != 'id') {
                 echo (json_encode(["status" => "error", "message" => "Para deletar um usuário necessita do ID"]));
                 exit;
@@ -81,8 +80,6 @@ switch ($action) {
     case "logar":
         $com = "select * from users where ";
         foreach (array_combine(array_keys($_POST), array_values($_POST)) as $key => $value) {
-           
-
             $com .= $key . "='" . $value . "' and ";
         }
         $com = substr($com, 0, -5);
