@@ -1,2 +1,2 @@
 # bytestore_api
-PHP | API da ByteStore
+PHP | API do projeto [ByteStore](https://github.com/iagof-dev/bytestore)
