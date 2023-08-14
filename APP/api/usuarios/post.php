@@ -1,6 +1,4 @@
 <?php
-error_reporting(-1);
-
 if (empty($_POST)) {
     echo (json_encode(["status" => "error", "message" => "Nenhum argumento foi passado"]));
     exit(0);
@@ -99,7 +97,7 @@ try {
         }
         echo json_encode(["status" => "success", "message" => $rs->fetchAll(PDO::FETCH_ASSOC)]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Nada foi modificado..."]);
+        echo json_encode(["status" => "error", "message" => "Nenhuma alteração foi feita"]);
     }
 } catch (Exception $ex) {
     echo json_encode(["status" => "error", "message" => $ex]);

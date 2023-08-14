@@ -13,14 +13,14 @@ if (isset($_GET['path'])) {
 }
 
 
+if (isset($path[0])) {
+    $api = $path[0];
+}
 if (isset($path[1])) {
-    $api = $path[1];
+    $action = $path[1];
 }
 if (isset($path[2])) {
-    $action = $path[2];
-}
-if (isset($path[3])) {
-    $param = $path[3];
+    $param = $path[2];
 }
 if(isset($path[4])){
     $param2 = $path[4];
@@ -35,6 +35,7 @@ if ($api == '') {
 
 $method = $_SERVER['REQUEST_METHOD'];
 
+
 #Classes
 include_once("classes/db.php");
 include_once("classes/usuario.php");
@@ -43,14 +44,16 @@ include_once("classes/usuario.php");
 ///     Autenticação
 ///
 
-$AccessToken = new cliente();
-$AccessToken->login();
-
+if($method != 'GET'){
+    $AccessToken = new cliente();
+    $AccessToken->login();
+}
 
 
 #API
 include_once("./api/usuarios/usuario.php");
 include_once("./api/produtos/produto.php");
+include_once("./api/categoria/categoria.php");
 
 
 ?>
