@@ -2,7 +2,7 @@
 --
 -- Host: api.iagofragnan.com.br    Database: n3rdyapi
 -- ------------------------------------------------------
--- Server version	8.0.33-0ubuntu0.20.04.4
+-- Server version	8.0.34-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-09 19:58:21
+-- Dump completed on 2023-09-29  6:28:37
