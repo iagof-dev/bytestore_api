@@ -11,5 +11,3 @@ if ($api == 'produto' && $method == 'POST') {
 }
 
 
-
-?>

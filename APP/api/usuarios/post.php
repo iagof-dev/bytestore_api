@@ -3,7 +3,6 @@ if (empty($_POST)) {
     echo (json_encode(["status" => "error", "message" => "Nenhum argumento foi passado"]));
     exit(0);
 }
-$db = DB::connect("n3rdy_bytestore");
 $com = "";
 $message = "";
 

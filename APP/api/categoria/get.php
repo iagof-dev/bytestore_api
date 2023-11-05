@@ -1,5 +1,4 @@
 <?php
-$db = DB::connect("n3rdy_bytestore");
 switch ($action) {
     case 'listar':
         $rs = $db->prepare("select * from category;");

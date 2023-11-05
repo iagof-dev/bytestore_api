@@ -1,5 +1,4 @@
 <?php
-$db = DB::connect("n3rdy_bytestore");
 switch ($action) {
     case 'id':
         $rs = $db->prepare("SELECT id, username, role, verified, pfp, description FROM users where id={$param};");

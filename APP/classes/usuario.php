@@ -8,7 +8,8 @@ class cliente
 
     public function login()
     {
-        $db = DB::connect("n3rdyapi");
+        $db_cl = new DB();
+        $db = $db_cl->connect("n3rdyapi");
 
         $md5pass = md5($_POST['apipass']);
 

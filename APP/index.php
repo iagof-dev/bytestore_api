@@ -40,6 +40,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 include_once("classes/db.php");
 include_once("classes/usuario.php");
 
+
 ///
 ///     Autenticação
 ///
@@ -49,11 +50,14 @@ if($method != 'GET'){
     $AccessToken->login();
 }
 
+$database_cl = new DB();
+$db = $database_cl->connect("n3rdy_bytestore");
+
 
 #API
 include_once("./api/usuarios/usuario.php");
 include_once("./api/produtos/produto.php");
 include_once("./api/categoria/categoria.php");
-
+include_once("./api/pagamentos/pagamentos.php");
 
 ?>
