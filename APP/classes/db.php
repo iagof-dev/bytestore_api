@@ -2,11 +2,23 @@
 class DB
 {
 
-    private $host = "api.iagofragnan.com.br";
-    private $port = "3306";
-    private $user = "";
-    private $pass = "";
+    private $host;
+    private $port;
+    private $user;
+    private $pass;
     private $db;
+
+
+    function __construct()
+    {
+        $config = new config();
+        $config_info = $config->get();
+        $this->host = $config_info['db_ip'];
+        $this->port = $config_info['db_port'];
+        $this->user = $config_info['db_user'];
+        $this->pass = $config_info['db_pass'];
+    }
+
 
     function connect($database)
     {

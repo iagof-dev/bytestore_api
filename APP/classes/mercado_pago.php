@@ -1,65 +1,66 @@
 <?php
 
-require_once(__DIR__ . "/../vendor/autoload.php");
 
-use MercadoPago\Client\Preference\PreferenceClient;
-use MercadoPago\Client\Common\RequestOptions;
-use MercadoPago\Exceptions\MPApiException;
-use MercadoPago\MercadoPagoConfig;
+class MercadoPago{
+    
+    public $secret_token;
+    public $notification_url;
 
-class mercado_pago
-{
-
-    private $client;
     function __construct()
     {
-        MercadoPagoConfig::setAccessToken("");
-        $this->client = new PreferenceClient();
+        $config = new config();
+        $config_info = $config->get();
+        $this->secret_token = $config_info['mp_secret_token'];
+        $this->notification_url = $config_info['Notication_URL'];
     }
+    
+    function CreatePix($id_gateway, $product_title, $customer_email, $value){
+        
+        $curl = curl_init();
 
-    function createPayment($product_id,$title, $desc, $unit_price, $seller_id, $customer_id,$customer_email, $category_id = 0, $qnt = 1)
-    {
-
-        try {
-
-            $request = [
-                "items" => [
-                    [
-                        "id" => 0,
-                        "title" => $title,
-                        "quantity" => (int)$qnt,
-                        "currency_id" => "R$",
-                        "unit_price" => (double)$unit_price,
-                        "description" => $desc
-                    ]
-                ],
-                "payer" => [
-                    "email" => $customer_email
-                ]
-            ];
-
-            $preference = $this->client->create($request);
-            //retornar: link
-            //sandbox_init_point
-            //init_point
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.mercadopago.com/v1/payments',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '
+            {
+                "notification_url": "'. $this->notification_url .'",
+                    "description": "'. $product_title . '",
+                    "external_reference": "'. $id_gateway.'",
+                    "payer": {
+                        "entity_type": "individual",
+                        "type": "customer",
+                        "email": "'. $customer_email .'",
+                        "identification": {
+                            "type": "CPF",
+                            "number": "95749019047"
+                        }
+                    },
+                    "payment_method_id": "pix",
+                    "transaction_amount": 1.0
+                }
+                
+                ',
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Authorization: Bearer '. $this->secret_token
+                ),
+            ));
             
-            // registrar no banco de dados:
-            //  client_id
-            //  payer_email
-            //  status
-            //  external_reference
-            $db = new DB();
-
-
-            $dt = new DateTime($preference->date_created);
-            $date = $dt->format('Y-m-d H:i:s');
-            $db->RegisterPayment($customer_id, $seller_id, $product_id, $customer_email, $preference->collector_id, $preference->id, "created", $date);
-
-            echo json_encode(["status" => "success", "data" => ["url" => $preference->init_point, "url_sandbox" => $preference->sandbox_init_point]]);
-        } catch (MPApiException $e) {
-            echo var_dump($e->getApiResponse()->getContent());
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+            
+            $response = curl_exec($curl);
+            curl_close($curl);
+            
+            return json_decode($response, true);
+            
         }
+        
+        
     }
-}
+    
+    ?>
