@@ -33,10 +33,6 @@ switch ($action) {
       
         $result = $mp->CreatePix($id_gateway, $product_title, $customer_email, $value);
 
-
-        //echo(var_dump($result));
-        //echo($result['point_of_interaction']['transaction_data']['qr_code_base64']);
-
         echo(json_encode(["status" => "success", "message" => $result['message'], "values" => ["url" => $result['point_of_interaction']['transaction_data']['ticket_url'], "copia_e_cola" => $result['point_of_interaction']['transaction_data']['qr_code'],"qr_code" => $result['point_of_interaction']['transaction_data']['qr_code_base64']]]));
         return;
         break;

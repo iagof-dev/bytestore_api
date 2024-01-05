@@ -54,7 +54,7 @@ switch ($action) {
 
         //$com = "SELECT * FROM n3rdy_bytestore.gateways WHERE ". $search . "=". $search_value;
 
-        $com = "SELECT *, gt.status as pag_status FROM n3rdy_bytestore.gateways as gt
+        $com = "SELECT *, gt.status as pag_status, gt.id as pag_id FROM n3rdy_bytestore.gateways as gt
         inner join n3rdy_bytestore.products as pt
         on gt.seller_product_id = pt.id
         where " . $search ."=" . $search_value .";";
