@@ -1,2 +1,3 @@
-# bytestore_api
-PHP | API do projeto [ByteStore](https://github.com/iagof-dev/bytestore)
+# Repositório Antigo
+
+Agora o repositório do banco de dados ja está integrado ao container da bytestore
